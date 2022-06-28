@@ -1,9 +1,12 @@
 package com.currency.currencyconvertermm
 
 import android.content.Context
+import androidx.datastore.preferences.core.PreferenceDataStoreFactory
+import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
 import app.cash.turbine.test
 import com.currency.currencyconvertermm.features.currencyconverter.CurrencyConverterVM
 import com.currency.currencyconvertermm.features.currencyconverter.exceptions.NetworkNotAvailableException
@@ -16,10 +19,7 @@ import com.mm.data.local.CurrenciesLocalSourceImpl
 import com.mm.data.network.CurrencyAPI
 import com.mm.data.repo.CurrenciesRepositoryImpl
 import com.mm.data.repo.LatestPricesRepositoryImpl
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
@@ -37,8 +37,15 @@ class CurrencyConverterVMShould {
 
     private var networkInfoProvider = FakeNetworkInfoProvider()
     private val database = Room.inMemoryDatabaseBuilder(context, CCDatabase::class.java).build()
+
+    val ds = PreferenceDataStoreFactory.create() {
+        InstrumentationRegistry.getInstrumentation().targetContext.preferencesDataStoreFile(
+            "test-preferences-file"
+        )
+    }
+
     private val currenciesLocalSource = CurrenciesLocalSourceImpl(
-        database,Dispatchers.IO
+        database,Dispatchers.IO,ds
     )
 
     private val latestPricesRepository by lazy {

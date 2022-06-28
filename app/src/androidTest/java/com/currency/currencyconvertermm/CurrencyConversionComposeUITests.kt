@@ -4,9 +4,12 @@ import android.content.Context
 import androidx.activity.viewModels
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.datastore.preferences.core.PreferenceDataStoreFactory
+import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
 import com.currency.currencyconvertermm.features.currencyconverter.CurrencyConverterVM
 import com.currency.currencyconvertermm.features.currencyconverter.composables.UICurrencyConverter
 import com.currency.currencyconvertermm.ui.theme.CurrencyConvertermmTheme
@@ -41,8 +44,15 @@ class CurrencyConversionComposeUITests {
 
     private var networkInfoProvider = FakeNetworkInfoProvider()
     private val database = Room.inMemoryDatabaseBuilder(context, CCDatabase::class.java).build()
+
+    val ds = PreferenceDataStoreFactory.create() {
+        InstrumentationRegistry.getInstrumentation().targetContext.preferencesDataStoreFile(
+            "test-preferences-file"
+        )
+    }
+
     private val currenciesLocalSource = CurrenciesLocalSourceImpl(
-        database, Dispatchers.IO
+        database,Dispatchers.IO,ds
     )
 
     private val latestPricesRepository by lazy {
