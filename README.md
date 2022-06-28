@@ -6,6 +6,12 @@ This is a jetpack compose sample app written in Kotlin following clean architect
 
 [OpenExchangeAPI](https://openexchangerates.org/)
 
+With added Tests! 
+
+1. Unit Tests
+2. ViewModel Tests
+3. Compose UI Tests
+
 ## 🏗️️ Built with ❤️ using Jetpack Compose 😁
 
 | What            | How                        |
