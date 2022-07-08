@@ -112,7 +112,6 @@ class CurrencyConverterVM @Inject constructor(
         try {
             job?.cancel()
             job = viewModelScope.launch {
-                delay(1000L)
                 if (currency.isNotEmpty()) {
                     val conversion = DMConversion(
                         System.currentTimeMillis(),

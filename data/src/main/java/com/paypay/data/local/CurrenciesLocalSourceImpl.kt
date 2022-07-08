@@ -16,6 +16,7 @@ import com.currency.domain.models.DMConversion
 import com.currency.domain.models.DMCurrency
 import com.currency.domain.models.DMLatestRate
 import com.mm.data.local.entities.LocalCurrency
+import com.paypay.data.local.Utils.toConversion
 import com.paypay.data.local.entities.Conversion
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
@@ -139,12 +140,7 @@ class CurrenciesLocalSourceImpl @Inject constructor(
 
     override suspend fun saveConversion(dmConversion: DMConversion) {
         withContext(coroutineContext) {
-            val conversion = Conversion(
-                dmConversion.timeStamp,
-                dmConversion.selectedCurrency,
-                dmConversion.currencyAmount
-            )
-            ccDatabase.currenciesDao().insertCurrencyConversion(conversion)
+            ccDatabase.currenciesDao().insertCurrencyConversion(dmConversion.toConversion())
         }
     }
 }

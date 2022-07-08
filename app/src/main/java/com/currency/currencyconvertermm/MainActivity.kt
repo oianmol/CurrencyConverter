@@ -16,6 +16,7 @@ import com.currency.currencyconvertermm.features.currencyconverter.ConversionsVi
 import com.currency.currencyconvertermm.features.currencyconverter.CurrencyConverterVM
 import com.currency.currencyconvertermm.features.currencyconverter.composables.UIConversionHistory
 import com.currency.currencyconvertermm.features.currencyconverter.composables.UICurrencyConverter
+import com.currency.currencyconvertermm.features.currencyconverter.utils.Constants
 import com.currency.currencyconvertermm.ui.theme.CurrencyConvertermmTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -37,9 +38,9 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
 
-                    NavHost(navController = navController, startDestination = "Converter") {
-                        composable("Converter") { UICurrencyConverter(navController,viewModel) }
-                        composable("ConversionHistory") { UIConversionHistory(navController,conversionViewModel) }
+                    NavHost(navController = navController, startDestination = Constants.CONVERTER_SCREEN) {
+                        composable(Constants.CONVERTER_SCREEN) { UICurrencyConverter(navController,viewModel) }
+                        composable(Constants.CONVERSION_HISTORY_SCREEN) { UIConversionHistory(navController,conversionViewModel) }
                     }
                 }
             }

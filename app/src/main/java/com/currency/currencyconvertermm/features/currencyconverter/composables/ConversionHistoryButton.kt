@@ -6,6 +6,7 @@ import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.currency.currencyconvertermm.R
 
@@ -15,7 +16,7 @@ fun ConversionHistoryButton(
 ) {
     Icon(
         painter = painterResource(id = R.drawable.ic_baseline_history_24),
-        contentDescription = "Conversion History Button",
+        contentDescription = stringResource(id = R.string.conversion_history_button_content_description),
         modifier = Modifier
             .size(24.dp)
             .clickable {

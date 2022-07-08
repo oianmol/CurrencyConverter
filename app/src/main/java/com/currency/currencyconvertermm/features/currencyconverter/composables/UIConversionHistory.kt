@@ -11,8 +11,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.currency.currencyconvertermm.R
 import com.currency.currencyconvertermm.features.currencyconverter.ConversionsViewModel
 import com.currency.currencyconvertermm.features.currencyconverter.CurrencyConverterVM
 
@@ -24,7 +26,7 @@ fun UIConversionHistory(navController: NavController, viewModel: ConversionsView
 
     Scaffold(topBar = {
         TopAppBar(title = {
-            Text(text = "Currency Converter")
+            Text(text = stringResource(id = R.string.app_name))
         }
         )
     }) { innerPadding ->
@@ -34,7 +36,7 @@ fun UIConversionHistory(navController: NavController, viewModel: ConversionsView
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = "No Conversion History", modifier = Modifier.padding(innerPadding))
+                Text(text = stringResource(id = R.string.empty_conversion_history_sceen_message), modifier = Modifier.padding(innerPadding))
             }
         } else {
             LazyColumn(content = {

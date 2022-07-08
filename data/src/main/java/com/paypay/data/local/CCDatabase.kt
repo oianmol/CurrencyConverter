@@ -8,7 +8,7 @@ import com.paypay.data.local.entities.Conversion
 
 @Database(
     entities = [LocalCurrency::class,Conversion::class],
-    version = 2,
+    version = 1,
     exportSchema = false
 )
 abstract class CCDatabase : RoomDatabase() {

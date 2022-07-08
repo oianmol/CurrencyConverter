@@ -3,4 +3,6 @@
     <string name="converter_select_currency">Select a Currency</string>
     <string name="enter_amount">Enter Amount</string>
     <string name="convert">Convert</string>
+    <string name="conversion_history_button_content_description">Conversion History Button</string>
+    <string name="empty_conversion_history_sceen_message">No Conversion History</string>
 </resources>
