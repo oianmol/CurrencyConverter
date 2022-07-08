@@ -4,14 +4,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.currency.currencyconvertermm.features.currencyconverter.exceptions.NetworkNotAvailableException
 import com.currency.domain.NetworkInfoProvider
+import com.currency.domain.models.DMConversion
 import com.currency.domain.models.DMCurrency
 import com.currency.domain.models.DMLatestRate
-import com.currency.domain.usecase.UseCaseFetchCurrencies
-import com.currency.domain.usecase.UseCaseFetchLatestPrices
-import com.currency.domain.usecase.UseCaseLoadCurrenciesDataFromNetwork
-import com.currency.domain.usecase.UseCaseLoadLatestPricesFromNetwork
+import com.currency.domain.usecase.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.util.*
@@ -23,7 +23,8 @@ class CurrencyConverterVM @Inject constructor(
     private val useCaseLoadLatestPricesFromNetwork: UseCaseLoadLatestPricesFromNetwork,
     private val useCaseFetchLatestPrices: UseCaseFetchLatestPrices,
     private val useCaseFetchCurrencies: UseCaseFetchCurrencies,
-    private val networkInfoProvider: NetworkInfoProvider
+    private val networkInfoProvider: NetworkInfoProvider,
+    private val useCaseSaveConversion: UseCaseSaveConversion,
 ) :
     ViewModel() {
 
@@ -43,6 +44,9 @@ class CurrencyConverterVM @Inject constructor(
     private val currenciesException = CoroutineExceptionHandler { _, throwable ->
         viewState.value = ViewState.Exception(throwable)
     }
+
+    var job: Job? = null
+
 
     init {
         registerNetwork()
@@ -76,6 +80,7 @@ class CurrencyConverterVM @Inject constructor(
     private fun registerOnAmountChangeFlow() {
         amountForConversion.onEach {
             _latestRatesState.value = flowFetchRates()
+            saveRecentConversion(it)
         }.launchIn(viewModelScope)
     }
 
@@ -101,7 +106,25 @@ class CurrencyConverterVM @Inject constructor(
 
     private fun flowFetchRates(): Flow<List<DMLatestRate>> {
         return useCaseFetchLatestPrices.perform(amountForConversion.value)
+    }
 
+    private fun saveRecentConversion(currency: String) {
+        try {
+            job?.cancel()
+            job = viewModelScope.launch {
+                delay(1000L)
+                if (currency.isNotEmpty()) {
+                    val conversion = DMConversion(
+                        System.currentTimeMillis(),
+                        searchCurrency.value,
+                        currency.toDouble()
+                    )
+                    useCaseSaveConversion.perform(conversion)
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     fun updateCurrency(key: Pair<String, String>) {

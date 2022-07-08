@@ -1,11 +1,9 @@
 package com.currency.currencyconvertermm.di
 
-import com.currency.domain.CurrenciesRepository
-import com.currency.domain.LatestPricesRepository
-import com.currency.domain.usecase.UseCaseFetchCurrencies
-import com.currency.domain.usecase.UseCaseFetchLatestPrices
-import com.currency.domain.usecase.UseCaseLoadCurrenciesDataFromNetwork
-import com.currency.domain.usecase.UseCaseLoadLatestPricesFromNetwork
+import com.currency.domain.repo.ConversionRepository
+import com.currency.domain.repo.CurrenciesRepository
+import com.currency.domain.repo.LatestPricesRepository
+import com.currency.domain.usecase.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,4 +32,14 @@ class UseCaseModule {
     @Singleton
     fun provideUseCaseLoadCurrenciesData(currenciesRepository: CurrenciesRepository) =
         UseCaseLoadCurrenciesDataFromNetwork(currenciesRepository)
+
+    @Provides
+    @Singleton
+    fun provideUseCaseFetchRecentConversion(conversionRepository: ConversionRepository) =
+        UseCaseFetchRecentConversions(conversionRepository)
+
+    @Provides
+    @Singleton
+    fun provideUseCaseSaveConversion(conversionRepository: ConversionRepository) =
+        UseCaseSaveConversion(conversionRepository)
 }

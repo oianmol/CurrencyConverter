@@ -1,7 +1,7 @@
 package com.mm.data.repo
 
 import com.currency.domain.CurrenciesLocalSource
-import com.currency.domain.CurrenciesRepository
+import com.currency.domain.repo.CurrenciesRepository
 import com.currency.domain.models.DMCurrency
 import com.mm.data.network.CurrencyAPI
 import kotlinx.coroutines.flow.Flow

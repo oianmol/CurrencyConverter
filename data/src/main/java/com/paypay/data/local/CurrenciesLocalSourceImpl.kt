@@ -12,9 +12,11 @@ import androidx.paging.map
 import com.currency.domain.CurrenciesLocalSource
 import com.currency.domain.CurrencyConverter
 import com.currency.domain.CurrencyConverter.CURRENCIES_KEY
+import com.currency.domain.models.DMConversion
 import com.currency.domain.models.DMCurrency
 import com.currency.domain.models.DMLatestRate
 import com.mm.data.local.entities.LocalCurrency
+import com.paypay.data.local.entities.Conversion
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
@@ -119,5 +121,30 @@ class CurrenciesLocalSourceImpl @Inject constructor(
             }
         }
 
+    }
+
+    override fun fetchRecentConversions(): Flow<List<DMConversion>> {
+        val data = ccDatabase.currenciesDao().getConversions()
+
+        return data.mapLatest {
+            it.map { conversion ->
+                DMConversion(
+                    conversion.timeStamp,
+                    conversion.selectedCurrency,
+                    conversion.currencyAmount
+                )
+            }
+        }
+    }
+
+    override suspend fun saveConversion(dmConversion: DMConversion) {
+        withContext(coroutineContext) {
+            val conversion = Conversion(
+                dmConversion.timeStamp,
+                dmConversion.selectedCurrency,
+                dmConversion.currencyAmount
+            )
+            ccDatabase.currenciesDao().insertCurrencyConversion(conversion)
+        }
     }
 }

@@ -1,6 +1,6 @@
 package com.currency.domain.usecase
 
-import com.currency.domain.LatestPricesRepository
+import com.currency.domain.repo.LatestPricesRepository
 import com.currency.domain.models.DMLatestRate
 import kotlinx.coroutines.flow.Flow
 
