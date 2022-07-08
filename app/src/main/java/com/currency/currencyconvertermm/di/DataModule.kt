@@ -6,8 +6,8 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.room.Room
-import com.mm.data.local.CCDatabase
-import com.mm.data.network.NetworkClient
+import com.paypay.data.local.CCDatabase
+import com.paypay.data.network.NetworkClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

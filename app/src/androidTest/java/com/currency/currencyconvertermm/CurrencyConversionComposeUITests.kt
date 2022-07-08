@@ -1,7 +1,6 @@
 package com.currency.currencyconvertermm
 
 import android.content.Context
-import androidx.activity.viewModels
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
@@ -17,21 +16,12 @@ import com.currency.domain.usecase.UseCaseFetchCurrencies
 import com.currency.domain.usecase.UseCaseFetchLatestPrices
 import com.currency.domain.usecase.UseCaseLoadCurrenciesDataFromNetwork
 import com.currency.domain.usecase.UseCaseLoadLatestPricesFromNetwork
-import com.mm.data.local.CCDatabase
-import com.mm.data.local.CurrenciesLocalSourceImpl
-import com.mm.data.network.CurrencyAPI
-import com.mm.data.repo.CurrenciesRepositoryImpl
-import com.mm.data.repo.LatestPricesRepositoryImpl
+import com.paypay.data.local.CCDatabase
+import com.paypay.data.local.CurrenciesLocalSourceImpl
+import com.paypay.data.network.CurrencyAPI
+import com.paypay.data.repo.CurrenciesRepositoryImpl
+import com.paypay.data.repo.LatestPricesRepositoryImpl
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
-import org.junit.After
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith

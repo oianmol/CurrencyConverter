@@ -1,8 +1,7 @@
-package com.mm.data.local.dao
+package com.paypay.data.local.dao
 
-import androidx.paging.PagingSource
 import androidx.room.*
-import com.mm.data.local.entities.LocalCurrency
+import com.paypay.data.local.entities.LocalCurrency
 import kotlinx.coroutines.flow.Flow
 
 @Dao

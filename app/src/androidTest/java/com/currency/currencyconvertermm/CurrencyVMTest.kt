@@ -14,11 +14,11 @@ import com.currency.domain.usecase.UseCaseFetchCurrencies
 import com.currency.domain.usecase.UseCaseFetchLatestPrices
 import com.currency.domain.usecase.UseCaseLoadCurrenciesDataFromNetwork
 import com.currency.domain.usecase.UseCaseLoadLatestPricesFromNetwork
-import com.mm.data.local.CCDatabase
-import com.mm.data.local.CurrenciesLocalSourceImpl
-import com.mm.data.network.CurrencyAPI
-import com.mm.data.repo.CurrenciesRepositoryImpl
-import com.mm.data.repo.LatestPricesRepositoryImpl
+import com.paypay.data.local.CCDatabase
+import com.paypay.data.local.CurrenciesLocalSourceImpl
+import com.paypay.data.network.CurrencyAPI
+import com.paypay.data.repo.CurrenciesRepositoryImpl
+import com.paypay.data.repo.LatestPricesRepositoryImpl
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.resetMain
