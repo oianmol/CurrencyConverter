@@ -1,5 +1,6 @@
 package com.currency.domain
 
+import com.currency.domain.models.DMConversion
 import com.currency.domain.models.DMCurrency
 import com.currency.domain.models.DMLatestRate
 import kotlinx.coroutines.flow.Flow
@@ -13,4 +14,6 @@ interface CurrenciesLocalSource {
     suspend fun canFetchCurrencies(): Boolean
     suspend fun canFetchLatestRates(): Boolean
     suspend fun latestRatesFetchLastTime(): Date?
+    fun fetchRecentConversions():Flow<List<DMConversion>>
+    suspend fun saveConversion(dmConversion: DMConversion)
 }

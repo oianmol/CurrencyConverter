@@ -3,6 +3,7 @@ package com.mm.data.local.dao
 import androidx.paging.PagingSource
 import androidx.room.*
 import com.mm.data.local.entities.LocalCurrency
+import com.paypay.data.local.entities.Conversion
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -25,5 +26,10 @@ interface CurrenciesDao {
     @Query("UPDATE currencies SET rate = :rate where currency = :key")
     fun updateCurrencyRates(key: String, rate: Double)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertCurrencyConversion(conversion: Conversion)
+
+    @Query("SELECT * FROM conversions ORDER BY timeStamp DESC")
+    fun getConversions():Flow<List<Conversion>>
 
 }

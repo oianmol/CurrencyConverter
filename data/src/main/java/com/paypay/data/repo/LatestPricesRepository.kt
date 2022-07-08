@@ -1,7 +1,6 @@
 package com.mm.data.repo
 
-import androidx.paging.PagingData
-import com.currency.domain.LatestPricesRepository
+import com.currency.domain.repo.LatestPricesRepository
 import com.currency.domain.models.DMLatestRate
 import com.currency.domain.CurrenciesLocalSource
 import com.mm.data.network.CurrencyAPI

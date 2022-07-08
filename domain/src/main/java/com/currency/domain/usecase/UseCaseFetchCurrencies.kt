@@ -1,6 +1,6 @@
 package com.currency.domain.usecase
 
-import com.currency.domain.CurrenciesRepository
+import com.currency.domain.repo.CurrenciesRepository
 import com.currency.domain.models.DMCurrency
 import kotlinx.coroutines.flow.Flow
 

@@ -1,4 +1,4 @@
-package com.currency.domain
+package com.currency.domain.repo
 
 import androidx.paging.PagingData
 import com.currency.domain.models.DMLatestRate

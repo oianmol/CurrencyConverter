@@ -10,15 +10,13 @@ import androidx.test.platform.app.InstrumentationRegistry
 import app.cash.turbine.test
 import com.currency.currencyconvertermm.features.currencyconverter.CurrencyConverterVM
 import com.currency.currencyconvertermm.features.currencyconverter.exceptions.NetworkNotAvailableException
-import com.currency.domain.usecase.UseCaseFetchCurrencies
-import com.currency.domain.usecase.UseCaseFetchLatestPrices
-import com.currency.domain.usecase.UseCaseLoadCurrenciesDataFromNetwork
-import com.currency.domain.usecase.UseCaseLoadLatestPricesFromNetwork
+import com.currency.domain.usecase.*
 import com.mm.data.local.CCDatabase
 import com.mm.data.local.CurrenciesLocalSourceImpl
 import com.mm.data.network.CurrencyAPI
 import com.mm.data.repo.CurrenciesRepositoryImpl
 import com.mm.data.repo.LatestPricesRepositoryImpl
+import com.paypay.data.repo.ConversionRepositoryImpl
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.resetMain
@@ -61,6 +59,13 @@ class CurrencyConverterVMShould {
         )
     }
 
+    private val conversionRepository by lazy {
+        ConversionRepositoryImpl(
+            Dispatchers.Main,
+            currenciesLocalSource
+        )
+    }
+
     private val useCaseFetchLatestPrices by lazy { UseCaseFetchLatestPrices(latestPricesRepository) }
     private val useCaseFetchCurrencies by lazy {
         UseCaseFetchCurrencies(currenciesRepository)
@@ -76,6 +81,11 @@ class CurrencyConverterVMShould {
     private val useCaseLoadLatestPricesFromNetwork by lazy {
         UseCaseLoadLatestPricesFromNetwork(latestPricesRepository)
     }
+
+    private val useCaseSaveConversion by lazy {
+        UseCaseSaveConversion(conversionRepository)
+    }
+
 
     private lateinit var currencyConverterVM: CurrencyConverterVM
 
@@ -104,7 +114,8 @@ class CurrencyConverterVMShould {
                     useCaseLoadLatestPricesFromNetwork,
                     useCaseFetchLatestPrices,
                     useCaseFetchCurrencies,
-                    networkInfoProvider
+                    networkInfoProvider,
+                    useCaseSaveConversion
                 )
 
                 currencyConverterVM.viewState.test {
@@ -129,7 +140,8 @@ class CurrencyConverterVMShould {
                     useCaseLoadLatestPricesFromNetwork,
                     useCaseFetchLatestPrices,
                     useCaseFetchCurrencies,
-                    networkInfoProvider
+                    networkInfoProvider,
+                    useCaseSaveConversion
                 )
 
                 currencyConverterVM.viewState.test {
@@ -159,7 +171,8 @@ class CurrencyConverterVMShould {
                     useCaseLoadLatestPricesFromNetwork,
                     useCaseFetchLatestPrices,
                     useCaseFetchCurrencies,
-                    networkInfoProvider
+                    networkInfoProvider,
+                    useCaseSaveConversion
                 )
                 currencyConverterVM.amountForConversion.value = amountToConvert.toString()
                 delay(10)

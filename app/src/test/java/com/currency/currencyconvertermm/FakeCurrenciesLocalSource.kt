@@ -1,6 +1,7 @@
 package com.currency.currencyconvertermm
 
 import com.currency.domain.CurrenciesLocalSource
+import com.currency.domain.models.DMConversion
 import com.currency.domain.models.DMCurrency
 import com.currency.domain.models.DMLatestRate
 import kotlinx.coroutines.flow.Flow
@@ -15,9 +16,17 @@ data class FakeCurrencyTable(
     val name: String
 )
 
+data class FakeConversionTable(
+    val timeStamp: Long,
+    val currency: String,
+    val amount: Double
+)
+
 class FakeCurrenciesLocalSource : CurrenciesLocalSource {
 
     private val currenciesFakeTable = hashSetOf<FakeCurrencyTable>()
+
+    private val conversionFakeTable = hashSetOf<FakeConversionTable>()
 
     override fun fetchLocalRates(
         searchKey: String?,
@@ -74,6 +83,26 @@ class FakeCurrenciesLocalSource : CurrenciesLocalSource {
 
     override suspend fun latestRatesFetchLastTime(): Date? {
         return Date()
+    }
+
+    override fun fetchRecentConversions(): Flow<List<DMConversion>> {
+        return flowOf(conversionFakeTable.map {
+            DMConversion(
+                System.currentTimeMillis(),
+                "USD",
+                75.0
+            )
+        })
+    }
+
+    override suspend fun saveConversion(dmConversion: DMConversion) {
+        conversionFakeTable.add(
+            FakeConversionTable(
+                dmConversion.timeStamp,
+                dmConversion.selectedCurrency,
+                dmConversion.currencyAmount
+            )
+        )
     }
 
 }
