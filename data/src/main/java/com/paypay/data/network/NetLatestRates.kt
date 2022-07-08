@@ -1,4 +1,4 @@
-package com.mm.data.network
+package com.paypay.data.network
 
 import kotlinx.serialization.Serializable
 

@@ -1,7 +1,7 @@
 package com.currency.currencyconvertermm
 
-import com.mm.data.network.CurrencyAPI
-import com.mm.data.network.NetLatestRates
+import com.paypay.data.network.CurrencyAPI
+import com.paypay.data.network.NetLatestRates
 
 class FakeCurrencyAPI : CurrencyAPI {
     override suspend fun networkFetchCurrencies(): Map<String, String> {

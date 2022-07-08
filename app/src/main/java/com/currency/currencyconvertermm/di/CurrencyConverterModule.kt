@@ -5,11 +5,11 @@ import com.currency.domain.CurrenciesLocalSource
 import com.currency.domain.CurrenciesRepository
 import com.currency.domain.LatestPricesRepository
 import com.currency.domain.NetworkInfoProvider
-import com.mm.data.local.CurrenciesLocalSourceImpl
-import com.mm.data.network.CurrencyAPI
-import com.mm.data.network.CurrencyAPIImpl
-import com.mm.data.repo.CurrenciesRepositoryImpl
-import com.mm.data.repo.LatestPricesRepositoryImpl
+import com.paypay.data.local.CurrenciesLocalSourceImpl
+import com.paypay.data.network.CurrencyAPI
+import com.paypay.data.network.CurrencyAPIImpl
+import com.paypay.data.repo.CurrenciesRepositoryImpl
+import com.paypay.data.repo.LatestPricesRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
